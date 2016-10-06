@@ -20,5 +20,7 @@ add: ADD;
 sub: SUB;
 print: PRINT;
 read: READ;
+sloop: LOOP;
+eloop: ELOOP;
 
-loop: LOOP expr* ELOOP;
+loop: sloop expr* eloop;

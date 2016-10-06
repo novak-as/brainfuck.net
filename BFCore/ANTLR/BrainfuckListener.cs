@@ -111,6 +111,26 @@ public interface IBrainfuckListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitRead([NotNull] BrainfuckParser.ReadContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="BrainfuckParser.sloop"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSloop([NotNull] BrainfuckParser.SloopContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="BrainfuckParser.sloop"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSloop([NotNull] BrainfuckParser.SloopContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="BrainfuckParser.eloop"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterEloop([NotNull] BrainfuckParser.EloopContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="BrainfuckParser.eloop"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitEloop([NotNull] BrainfuckParser.EloopContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="BrainfuckParser.loop"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

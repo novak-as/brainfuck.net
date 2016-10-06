@@ -131,6 +131,30 @@ public partial class BrainfuckBaseListener : IBrainfuckListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitRead([NotNull] BrainfuckParser.ReadContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="BrainfuckParser.sloop"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSloop([NotNull] BrainfuckParser.SloopContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="BrainfuckParser.sloop"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSloop([NotNull] BrainfuckParser.SloopContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="BrainfuckParser.eloop"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterEloop([NotNull] BrainfuckParser.EloopContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="BrainfuckParser.eloop"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitEloop([NotNull] BrainfuckParser.EloopContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="BrainfuckParser.loop"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

@@ -36,9 +36,11 @@ public partial class BrainfuckParser : Parser {
 		NEXT=1, PREV=2, ADD=3, SUB=4, PRINT=5, READ=6, LOOP=7, ELOOP=8, WS=9;
 	public const int
 		RULE_analyze = 0, RULE_expr = 1, RULE_next = 2, RULE_prev = 3, RULE_add = 4, 
-		RULE_sub = 5, RULE_print = 6, RULE_read = 7, RULE_loop = 8;
+		RULE_sub = 5, RULE_print = 6, RULE_read = 7, RULE_sloop = 8, RULE_eloop = 9, 
+		RULE_loop = 10;
 	public static readonly string[] ruleNames = {
-		"analyze", "expr", "next", "prev", "add", "sub", "print", "read", "loop"
+		"analyze", "expr", "next", "prev", "add", "sub", "print", "read", "sloop", 
+		"eloop", "loop"
 	};
 
 	private static readonly string[] _LiteralNames = {
@@ -101,20 +103,20 @@ public partial class BrainfuckParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 21;
+			State = 25;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.La(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NEXT) | (1L << PREV) | (1L << ADD) | (1L << SUB) | (1L << PRINT) | (1L << READ) | (1L << LOOP))) != 0)) {
 				{
 				{
-				State = 18; expr();
+				State = 22; expr();
 				}
 				}
-				State = 23;
+				State = 27;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.La(1);
 			}
-			State = 24; Match(Eof);
+			State = 28; Match(Eof);
 			}
 		}
 		catch (RecognitionException re) {
@@ -172,41 +174,41 @@ public partial class BrainfuckParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 33;
+			State = 37;
 			switch (TokenStream.La(1)) {
 			case NEXT:
 				{
-				State = 26; next();
+				State = 30; next();
 				}
 				break;
 			case PREV:
 				{
-				State = 27; prev();
+				State = 31; prev();
 				}
 				break;
 			case ADD:
 				{
-				State = 28; add();
+				State = 32; add();
 				}
 				break;
 			case SUB:
 				{
-				State = 29; sub();
+				State = 33; sub();
 				}
 				break;
 			case PRINT:
 				{
-				State = 30; print();
+				State = 34; print();
 				}
 				break;
 			case READ:
 				{
-				State = 31; read();
+				State = 35; read();
 				}
 				break;
 			case LOOP:
 				{
-				State = 32; loop();
+				State = 36; loop();
 				}
 				break;
 			default:
@@ -249,7 +251,7 @@ public partial class BrainfuckParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 35; Match(NEXT);
+			State = 39; Match(NEXT);
 			}
 		}
 		catch (RecognitionException re) {
@@ -287,7 +289,7 @@ public partial class BrainfuckParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 37; Match(PREV);
+			State = 41; Match(PREV);
 			}
 		}
 		catch (RecognitionException re) {
@@ -325,7 +327,7 @@ public partial class BrainfuckParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 39; Match(ADD);
+			State = 43; Match(ADD);
 			}
 		}
 		catch (RecognitionException re) {
@@ -363,7 +365,7 @@ public partial class BrainfuckParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 41; Match(SUB);
+			State = 45; Match(SUB);
 			}
 		}
 		catch (RecognitionException re) {
@@ -401,7 +403,7 @@ public partial class BrainfuckParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 43; Match(PRINT);
+			State = 47; Match(PRINT);
 			}
 		}
 		catch (RecognitionException re) {
@@ -439,7 +441,83 @@ public partial class BrainfuckParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 45; Match(READ);
+			State = 49; Match(READ);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class SloopContext : ParserRuleContext {
+		public ITerminalNode LOOP() { return GetToken(BrainfuckParser.LOOP, 0); }
+		public SloopContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_sloop; } }
+		public override void EnterRule(IParseTreeListener listener) {
+			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			if (typedListener != null) typedListener.EnterSloop(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			if (typedListener != null) typedListener.ExitSloop(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public SloopContext sloop() {
+		SloopContext _localctx = new SloopContext(Context, State);
+		EnterRule(_localctx, 16, RULE_sloop);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 51; Match(LOOP);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class EloopContext : ParserRuleContext {
+		public ITerminalNode ELOOP() { return GetToken(BrainfuckParser.ELOOP, 0); }
+		public EloopContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_eloop; } }
+		public override void EnterRule(IParseTreeListener listener) {
+			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			if (typedListener != null) typedListener.EnterEloop(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			if (typedListener != null) typedListener.ExitEloop(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public EloopContext eloop() {
+		EloopContext _localctx = new EloopContext(Context, State);
+		EnterRule(_localctx, 18, RULE_eloop);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 53; Match(ELOOP);
 			}
 		}
 		catch (RecognitionException re) {
@@ -454,8 +532,12 @@ public partial class BrainfuckParser : Parser {
 	}
 
 	public partial class LoopContext : ParserRuleContext {
-		public ITerminalNode LOOP() { return GetToken(BrainfuckParser.LOOP, 0); }
-		public ITerminalNode ELOOP() { return GetToken(BrainfuckParser.ELOOP, 0); }
+		public SloopContext sloop() {
+			return GetRuleContext<SloopContext>(0);
+		}
+		public EloopContext eloop() {
+			return GetRuleContext<EloopContext>(0);
+		}
 		public ExprContext[] expr() {
 			return GetRuleContexts<ExprContext>();
 		}
@@ -480,26 +562,26 @@ public partial class BrainfuckParser : Parser {
 	[RuleVersion(0)]
 	public LoopContext loop() {
 		LoopContext _localctx = new LoopContext(Context, State);
-		EnterRule(_localctx, 16, RULE_loop);
+		EnterRule(_localctx, 20, RULE_loop);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 47; Match(LOOP);
-			State = 51;
+			State = 55; sloop();
+			State = 59;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.La(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NEXT) | (1L << PREV) | (1L << ADD) | (1L << SUB) | (1L << PRINT) | (1L << READ) | (1L << LOOP))) != 0)) {
 				{
 				{
-				State = 48; expr();
+				State = 56; expr();
 				}
 				}
-				State = 53;
+				State = 61;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.La(1);
 			}
-			State = 54; Match(ELOOP);
+			State = 62; eloop();
 			}
 		}
 		catch (RecognitionException re) {
@@ -517,29 +599,31 @@ public partial class BrainfuckParser : Parser {
 	private static string _serializeATN()
 	{
 	    StringBuilder sb = new StringBuilder();
-	    sb.Append("\x3\x430\xD6D1\x8206\xAD2D\x4417\xAEF1\x8D80\xAADD\x3\v;");
+	    sb.Append("\x3\x430\xD6D1\x8206\xAD2D\x4417\xAEF1\x8D80\xAADD\x3\v\x43");
 		sb.Append("\x4\x2\t\x2\x4\x3\t\x3\x4\x4\t\x4\x4\x5\t\x5\x4\x6\t\x6\x4\a");
-		sb.Append("\t\a\x4\b\t\b\x4\t\t\t\x4\n\t\n\x3\x2\a\x2\x16\n\x2\f\x2\xE");
-		sb.Append("\x2\x19\v\x2\x3\x2\x3\x2\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3");
-		sb.Append("\x3\x3\x5\x3$\n\x3\x3\x4\x3\x4\x3\x5\x3\x5\x3\x6\x3\x6\x3\a");
-		sb.Append("\x3\a\x3\b\x3\b\x3\t\x3\t\x3\n\x3\n\a\n\x34\n\n\f\n\xE\n\x37");
-		sb.Append("\v\n\x3\n\x3\n\x3\n\x2\x2\v\x2\x4\x6\b\n\f\xE\x10\x12\x2\x2");
-		sb.Append("\x39\x2\x17\x3\x2\x2\x2\x4#\x3\x2\x2\x2\x6%\x3\x2\x2\x2\b\'");
-		sb.Append("\x3\x2\x2\x2\n)\x3\x2\x2\x2\f+\x3\x2\x2\x2\xE-\x3\x2\x2\x2\x10");
-		sb.Append("/\x3\x2\x2\x2\x12\x31\x3\x2\x2\x2\x14\x16\x5\x4\x3\x2\x15\x14");
-		sb.Append("\x3\x2\x2\x2\x16\x19\x3\x2\x2\x2\x17\x15\x3\x2\x2\x2\x17\x18");
-		sb.Append("\x3\x2\x2\x2\x18\x1A\x3\x2\x2\x2\x19\x17\x3\x2\x2\x2\x1A\x1B");
-		sb.Append("\a\x2\x2\x3\x1B\x3\x3\x2\x2\x2\x1C$\x5\x6\x4\x2\x1D$\x5\b\x5");
-		sb.Append("\x2\x1E$\x5\n\x6\x2\x1F$\x5\f\a\x2 $\x5\xE\b\x2!$\x5\x10\t\x2");
-		sb.Append("\"$\x5\x12\n\x2#\x1C\x3\x2\x2\x2#\x1D\x3\x2\x2\x2#\x1E\x3\x2");
-		sb.Append("\x2\x2#\x1F\x3\x2\x2\x2# \x3\x2\x2\x2#!\x3\x2\x2\x2#\"\x3\x2");
-		sb.Append("\x2\x2$\x5\x3\x2\x2\x2%&\a\x3\x2\x2&\a\x3\x2\x2\x2\'(\a\x4\x2");
-		sb.Append("\x2(\t\x3\x2\x2\x2)*\a\x5\x2\x2*\v\x3\x2\x2\x2+,\a\x6\x2\x2");
-		sb.Append(",\r\x3\x2\x2\x2-.\a\a\x2\x2.\xF\x3\x2\x2\x2/\x30\a\b\x2\x2\x30");
-		sb.Append("\x11\x3\x2\x2\x2\x31\x35\a\t\x2\x2\x32\x34\x5\x4\x3\x2\x33\x32");
-		sb.Append("\x3\x2\x2\x2\x34\x37\x3\x2\x2\x2\x35\x33\x3\x2\x2\x2\x35\x36");
-		sb.Append("\x3\x2\x2\x2\x36\x38\x3\x2\x2\x2\x37\x35\x3\x2\x2\x2\x38\x39");
-		sb.Append("\a\n\x2\x2\x39\x13\x3\x2\x2\x2\x5\x17#\x35");
+		sb.Append("\t\a\x4\b\t\b\x4\t\t\t\x4\n\t\n\x4\v\t\v\x4\f\t\f\x3\x2\a\x2");
+		sb.Append("\x1A\n\x2\f\x2\xE\x2\x1D\v\x2\x3\x2\x3\x2\x3\x3\x3\x3\x3\x3");
+		sb.Append("\x3\x3\x3\x3\x3\x3\x3\x3\x5\x3(\n\x3\x3\x4\x3\x4\x3\x5\x3\x5");
+		sb.Append("\x3\x6\x3\x6\x3\a\x3\a\x3\b\x3\b\x3\t\x3\t\x3\n\x3\n\x3\v\x3");
+		sb.Append("\v\x3\f\x3\f\a\f<\n\f\f\f\xE\f?\v\f\x3\f\x3\f\x3\f\x2\x2\r\x2");
+		sb.Append("\x4\x6\b\n\f\xE\x10\x12\x14\x16\x2\x2?\x2\x1B\x3\x2\x2\x2\x4");
+		sb.Append("\'\x3\x2\x2\x2\x6)\x3\x2\x2\x2\b+\x3\x2\x2\x2\n-\x3\x2\x2\x2");
+		sb.Append("\f/\x3\x2\x2\x2\xE\x31\x3\x2\x2\x2\x10\x33\x3\x2\x2\x2\x12\x35");
+		sb.Append("\x3\x2\x2\x2\x14\x37\x3\x2\x2\x2\x16\x39\x3\x2\x2\x2\x18\x1A");
+		sb.Append("\x5\x4\x3\x2\x19\x18\x3\x2\x2\x2\x1A\x1D\x3\x2\x2\x2\x1B\x19");
+		sb.Append("\x3\x2\x2\x2\x1B\x1C\x3\x2\x2\x2\x1C\x1E\x3\x2\x2\x2\x1D\x1B");
+		sb.Append("\x3\x2\x2\x2\x1E\x1F\a\x2\x2\x3\x1F\x3\x3\x2\x2\x2 (\x5\x6\x4");
+		sb.Append("\x2!(\x5\b\x5\x2\"(\x5\n\x6\x2#(\x5\f\a\x2$(\x5\xE\b\x2%(\x5");
+		sb.Append("\x10\t\x2&(\x5\x16\f\x2\' \x3\x2\x2\x2\'!\x3\x2\x2\x2\'\"\x3");
+		sb.Append("\x2\x2\x2\'#\x3\x2\x2\x2\'$\x3\x2\x2\x2\'%\x3\x2\x2\x2\'&\x3");
+		sb.Append("\x2\x2\x2(\x5\x3\x2\x2\x2)*\a\x3\x2\x2*\a\x3\x2\x2\x2+,\a\x4");
+		sb.Append("\x2\x2,\t\x3\x2\x2\x2-.\a\x5\x2\x2.\v\x3\x2\x2\x2/\x30\a\x6");
+		sb.Append("\x2\x2\x30\r\x3\x2\x2\x2\x31\x32\a\a\x2\x2\x32\xF\x3\x2\x2\x2");
+		sb.Append("\x33\x34\a\b\x2\x2\x34\x11\x3\x2\x2\x2\x35\x36\a\t\x2\x2\x36");
+		sb.Append("\x13\x3\x2\x2\x2\x37\x38\a\n\x2\x2\x38\x15\x3\x2\x2\x2\x39=");
+		sb.Append("\x5\x12\n\x2:<\x5\x4\x3\x2;:\x3\x2\x2\x2<?\x3\x2\x2\x2=;\x3");
+		sb.Append("\x2\x2\x2=>\x3\x2\x2\x2>@\x3\x2\x2\x2?=\x3\x2\x2\x2@\x41\x5");
+		sb.Append("\x14\v\x2\x41\x17\x3\x2\x2\x2\x5\x1B\'=");
 	    return sb.ToString();
 	}
 
