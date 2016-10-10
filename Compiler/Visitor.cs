@@ -9,6 +9,8 @@ namespace Compiler
 {
     public class Visitor: BrainfuckBaseListener
     {
+        private int _loopsCount = 0;
+
         public StringBuilder Result { get; set; }
 
         public Visitor()
@@ -34,7 +36,8 @@ namespace Compiler
 
         public override void EnterPrint([NotNull] BrainfuckParser.PrintContext context)
         {
-
+            //system output for debug mode
+            /*
             A("ldstr \"[\"");
             A("call void [mscorlib] System.Console::Write(string)");
             A("ldloc.1");
@@ -44,14 +47,17 @@ namespace Compiler
             A("ldloc.0");
             A("ldloc.1");
             A("ldelem.i4");
-            Result.AppendLine("call void [mscorlib] System.Console::WriteLine(int32)");
+            A("call void [mscorlib] System.Console::WriteLine(int32)");
+            */
 
-            /*
+            //original output
+
+            
             A("ldloc.0");
             A("ldloc.1");
             A("ldelem.i4");
             Result.AppendLine("call void [mscorlib] System.Console::Write(int32)");
-            */
+            
 
             base.EnterPrint(context);
         }
@@ -101,7 +107,7 @@ namespace Compiler
         }
 
         public override void EnterLoop([NotNull] BrainfuckParser.LoopContext context)
-        {
+        {   
             base.EnterLoop(context);
         }
 
@@ -110,14 +116,39 @@ namespace Compiler
             base.ExitLoop(context);
         }
 
-        public override void EnterEloop([NotNull] BrainfuckParser.EloopContext context)
-        {
-            base.EnterEloop(context);
-        }
-
         public override void EnterSloop([NotNull] BrainfuckParser.SloopContext context)
         {
+
+            A("ldloc.3");
+            A("ldc.i4.1");
+            A("add");
+            A("stloc.3");
+
+            A("ldloc.2");
+            A("ldloc.3");
+            A("ldloc.1");
+            A("stelem.i4");
+
+            A(string.Format("LOOP_{0}:", ++_loopsCount));
+
             base.EnterSloop(context);
+        }
+
+        public override void EnterEloop([NotNull] BrainfuckParser.EloopContext context)
+        {
+            A("ldloc.0");
+            A("ldloc.2");
+            A("ldloc.3");
+            A("ldelem.i4");
+            A("ldelem.i4");
+            A(string.Format("brtrue LOOP_{0}",_loopsCount--));
+
+            A("ldloc.3");
+            A("ldc.i4.1");
+            A("sub");
+            A("stloc.3");
+
+            base.EnterEloop(context);
         }
 
         private void A(String command)

@@ -39,13 +39,25 @@ namespace Compiler
             lines.AppendLine(".maxstack 8");
             lines.AppendLine(".entrypoint");
             lines.AppendLine(".locals init ([0] int32[] memory,");
-            lines.AppendLine("[1] int32 currentPosition)");
+            lines.AppendLine("[1] int32 currentPosition,");
+
+            //we can use something like "[2] class [System] System.Collections.Generic.Stack`1<int32> loopStack" here instead of simple int32 array
+            lines.AppendLine("[2] int32[] loopStack,");
+            lines.AppendLine("[3] int32 loopPosition)");
             
             lines.AppendLine("ldc.i4.s 100");
             lines.AppendLine("newarr [mscorlib]System.Int32");
             lines.AppendLine("stloc.0");
+
             lines.AppendLine("ldc.i4.0");
             lines.AppendLine("stloc.1");
+
+            lines.AppendLine("ldc.i4.s 50");
+            lines.AppendLine("newarr [mscorlib]System.Int32");
+            lines.AppendLine("stloc.2");
+
+            lines.AppendLine("ldc.i4.0");
+            lines.AppendLine("stloc.3");
 
             parser.analyze();
 
