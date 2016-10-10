@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,9 +14,17 @@ namespace Compiler
     {
         static void Main(string[] args)
         {
-            string filename = args[0];
+            if (args.Length == 0)
+            {
+                Console.WriteLine("Usage: compiler.exe filename");
+                Environment.Exit(1);
+            }
 
-            var text = File.ReadAllText(filename);
+
+            FileInfo inputFile = new FileInfo(args[0]);
+            FileInfo outputFile = new FileInfo(inputFile.FullName.Replace(inputFile.Extension, ".il"));
+
+            var text = File.ReadAllText(inputFile.FullName);
 
             Console.WriteLine("Compiling...");
 
@@ -40,11 +49,9 @@ namespace Compiler
             lines.AppendLine(".entrypoint");
             lines.AppendLine(".locals init ([0] int32[] memory,");
             lines.AppendLine("[1] int32 currentPosition,");
-
-            //we can use something like "[2] class [System] System.Collections.Generic.Stack`1<int32> loopStack" here instead of simple int32 array
             lines.AppendLine("[2] int32[] loopStack,");
             lines.AppendLine("[3] int32 loopPosition)");
-            
+
             lines.AppendLine("ldc.i4.s 100");
             lines.AppendLine("newarr [mscorlib]System.Int32");
             lines.AppendLine("stloc.0");
@@ -66,11 +73,11 @@ namespace Compiler
             lines.AppendLine("ret");
             lines.Append("}");
 
-            File.WriteAllText("test.il", lines.ToString());
+            File.WriteAllText(outputFile.FullName, lines.ToString());
 
             ProcessStartInfo proc = new System.Diagnostics.ProcessStartInfo();
-            proc.FileName = @"C:\Windows\Microsoft.NET\Framework\v4.0.30319\ilasm.exe";
-            proc.Arguments = @"D:\Projects\Brainfuck.net\Compiler\bin\Debug\test.il";
+            proc.FileName = Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetAssembly(typeof(string)).CodeBase).AbsolutePath), "ilasm.exe");
+            proc.Arguments = outputFile.FullName;
             Process.Start(proc);
 
             Console.WriteLine("Done");
