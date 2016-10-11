@@ -2,7 +2,7 @@
 
 ##Usage:
 
-  `compiler -f filename [-m value]`
+  `compiler -f filename [-m memory_size] [-n max_nested_depth]`
 
 ##Example:
 
