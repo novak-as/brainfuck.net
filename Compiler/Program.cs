@@ -13,8 +13,8 @@ namespace Compiler
 {
     class Program
     {
-        private static int _availableMemory = 1000;
-        private static int _maxDepthNested = 50;
+        private static int _availableMemory = 100;
+        private static int _maxDepthNested = 10;
         private static string _inputFile;
         private static bool _showHelp = false;
 

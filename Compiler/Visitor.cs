@@ -56,7 +56,7 @@ namespace Compiler
             A("ldloc.0");
             A("ldloc.1");
             A("ldelem.i4");
-            Result.AppendLine("call void [mscorlib] System.Console::Write(int32)");
+            Result.AppendLine("call void [mscorlib] System.Console::Write(char)");
             
 
             base.EnterPrint(context);
