@@ -13,7 +13,8 @@ namespace Compiler
 {
     class Program
     {
-        private static int _availableMemory = 100;
+        private static int _availableMemory = 1000;
+        private static int _maxDepthNested = 50;
         private static string _inputFile;
         private static bool _showHelp = false;
 
@@ -24,6 +25,7 @@ namespace Compiler
             {
                 { "f|file=", "{file} with brainfuck sources", v=> { _inputFile = v; } },
                 { "m|memory=", "available memory", v=> { _availableMemory = Int32.Parse(v); } },
+                { "n|nested=", "max depth of nested loop", v=> { _maxDepthNested = Int32.Parse(v); } },
                 { "h|help", "show this message", v=> _showHelp = v != null }
             };
 
@@ -81,7 +83,7 @@ namespace Compiler
             lines.AppendLine("ldc.i4.0");
             lines.AppendLine("stloc.1");
 
-            lines.AppendLine("ldc.i4.s 50");
+            lines.AppendFormat("ldc.i4.s {0}\n", _maxDepthNested);
             lines.AppendLine("newarr [mscorlib]System.Int32");
             lines.AppendLine("stloc.2");
 
@@ -107,7 +109,7 @@ namespace Compiler
 
         private static void ShowHelp(OptionSet options)
         {
-            Console.WriteLine("Usage: compiler -f filename [-m memory_size]");
+            Console.WriteLine("Usage: compiler -f filename [-m memory_size] [-n max_nested_depth]");
             Console.WriteLine("Options:");
             options.WriteOptionDescriptions(Console.Out);
         }
