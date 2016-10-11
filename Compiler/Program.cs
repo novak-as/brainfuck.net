@@ -1,4 +1,5 @@
 ﻿using Antlr4.Runtime;
+using NDesk.Options;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,16 +13,37 @@ namespace Compiler
 {
     class Program
     {
+        private static int _availableMemory = 100;
+        private static string _inputFile;
+        private static bool _showHelp = false;
+
         static void Main(string[] args)
         {
-            if (args.Length == 0)
+
+            var optionSet = new OptionSet()
             {
-                Console.WriteLine("Usage: compiler.exe filename");
+                { "f|file=", "{file} with brainfuck sources", v=> { _inputFile = v; } },
+                { "m|memory=", "available memory", v=> { _availableMemory = Int32.Parse(v); } },
+                { "h|help", "show this message", v=> _showHelp = v != null }
+            };
+
+            try
+            {
+                var compilerParams = optionSet.Parse(args);
+            }
+            catch (OptionException ex)
+            {
+                Console.WriteLine("Invalid params, try 'compiler --help' for more options");
                 Environment.Exit(1);
             }
 
+            if (_showHelp || String.IsNullOrEmpty(_inputFile))
+            {
+                ShowHelp(optionSet);
+                Environment.Exit(0);
+            }
 
-            FileInfo inputFile = new FileInfo(args[0]);
+            FileInfo inputFile = new FileInfo(_inputFile);
             FileInfo outputFile = new FileInfo(inputFile.FullName.Replace(inputFile.Extension, ".il"));
 
             var text = File.ReadAllText(inputFile.FullName);
@@ -52,7 +74,7 @@ namespace Compiler
             lines.AppendLine("[2] int32[] loopStack,");
             lines.AppendLine("[3] int32 loopPosition)");
 
-            lines.AppendLine("ldc.i4.s 100");
+            lines.AppendFormat("ldc.i4.s {0}\n", _availableMemory);
             lines.AppendLine("newarr [mscorlib]System.Int32");
             lines.AppendLine("stloc.0");
 
@@ -81,6 +103,13 @@ namespace Compiler
             Process.Start(proc);
 
             Console.WriteLine("Done");
+        }
+
+        private static void ShowHelp(OptionSet options)
+        {
+            Console.WriteLine("Usage: compiler -f filename [-m memory_size]");
+            Console.WriteLine("Options:");
+            options.WriteOptionDescriptions(Console.Out);
         }
     }
 }

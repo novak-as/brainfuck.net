@@ -2,21 +2,21 @@
 
 ##Usage:
 
-  `compiler.exe somebrainfuckcode.bf`
+  `compiler -f filename [-m value]`
 
 ##Example:
 
 #####Input:
-   
+
 * test.bf
-   
+
    `,.[-.]`
-   
+
 #####Output:
-  
+
 * test.exe
 * test.il
-  
+
   ```
 .assembly extern mscorlib {}
 .assembly Test
@@ -85,4 +85,3 @@ stloc.3
 ret
 }
   ```
-   
