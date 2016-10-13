@@ -140,4 +140,24 @@ public interface IBrainfuckListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitLoop([NotNull] BrainfuckParser.LoopContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="BrainfuckParser.seq_inc"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSeq_inc([NotNull] BrainfuckParser.Seq_incContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="BrainfuckParser.seq_inc"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSeq_inc([NotNull] BrainfuckParser.Seq_incContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="BrainfuckParser.seq_dec"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSeq_dec([NotNull] BrainfuckParser.Seq_decContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="BrainfuckParser.seq_dec"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSeq_dec([NotNull] BrainfuckParser.Seq_decContext context);
 }

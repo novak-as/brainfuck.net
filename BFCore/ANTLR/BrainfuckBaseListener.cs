@@ -166,6 +166,30 @@ public partial class BrainfuckBaseListener : IBrainfuckListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitLoop([NotNull] BrainfuckParser.LoopContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="BrainfuckParser.seq_inc"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSeq_inc([NotNull] BrainfuckParser.Seq_incContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="BrainfuckParser.seq_inc"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSeq_inc([NotNull] BrainfuckParser.Seq_incContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="BrainfuckParser.seq_dec"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSeq_dec([NotNull] BrainfuckParser.Seq_decContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="BrainfuckParser.seq_dec"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSeq_dec([NotNull] BrainfuckParser.Seq_decContext context) { }
 
 	/// <inheritdoc/>
 	/// <remarks>The default implementation does nothing.</remarks>
