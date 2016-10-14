@@ -9,7 +9,8 @@ namespace Compiler
 {
     public class Visitor: BrainfuckBaseListener
     {
-        private int _loopsCount = 0;
+        private Stack<int> _loops = new Stack<int>();
+        private int _loopId = 0;
 
         public StringBuilder Result { get; set; }
 
@@ -146,7 +147,8 @@ namespace Compiler
             A("ldloc.1");
             A("stelem.i4");
 
-            A(string.Format("LOOP_{0}:", ++_loopsCount));
+            A(string.Format("LOOP_{0}:", ++_loopId));
+            _loops.Push(_loopId);
 
             base.EnterSloop(context);
         }
@@ -158,7 +160,7 @@ namespace Compiler
             A("ldloc.3");
             A("ldelem.i4");
             A("ldelem.i4");
-            A(string.Format("brtrue LOOP_{0}",_loopsCount--));
+            A(string.Format("brtrue LOOP_{0}",_loops.Pop()));
 
             A("ldloc.3");
             A("ldc.i4.1");
