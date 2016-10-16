@@ -12,7 +12,7 @@ WS:[\t\r\n]+ -> skip;
 
 analyze: expr* EOF;
 
-expr: (next|prev|seq_inc|seq_dec|print|read|loop);
+expr: (next|prev|seq_inc|seq_dec|print|read|reset_value|loop);
 
 next: NEXT;
 prev: PREV;
@@ -23,7 +23,10 @@ read: READ;
 sloop: LOOP;
 eloop: ELOOP;
 
+
+reset_value: sloop sub eloop;
 loop: sloop expr* eloop;
 
 seq_inc: add+;
 seq_dec: sub+;
+

@@ -155,6 +155,18 @@ public partial class BrainfuckBaseListener : IBrainfuckListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitEloop([NotNull] BrainfuckParser.EloopContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="BrainfuckParser.reset_value"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterReset_value([NotNull] BrainfuckParser.Reset_valueContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="BrainfuckParser.reset_value"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitReset_value([NotNull] BrainfuckParser.Reset_valueContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="BrainfuckParser.loop"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

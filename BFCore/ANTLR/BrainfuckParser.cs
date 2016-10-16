@@ -37,10 +37,10 @@ public partial class BrainfuckParser : Parser {
 	public const int
 		RULE_analyze = 0, RULE_expr = 1, RULE_next = 2, RULE_prev = 3, RULE_add = 4, 
 		RULE_sub = 5, RULE_print = 6, RULE_read = 7, RULE_sloop = 8, RULE_eloop = 9, 
-		RULE_loop = 10, RULE_seq_inc = 11, RULE_seq_dec = 12;
+		RULE_reset_value = 10, RULE_loop = 11, RULE_seq_inc = 12, RULE_seq_dec = 13;
 	public static readonly string[] ruleNames = {
 		"analyze", "expr", "next", "prev", "add", "sub", "print", "read", "sloop", 
-		"eloop", "loop", "seq_inc", "seq_dec"
+		"eloop", "reset_value", "loop", "seq_inc", "seq_dec"
 	};
 
 	private static readonly string[] _LiteralNames = {
@@ -103,20 +103,20 @@ public partial class BrainfuckParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 29;
+			State = 31;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.La(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NEXT) | (1L << PREV) | (1L << ADD) | (1L << SUB) | (1L << PRINT) | (1L << READ) | (1L << LOOP))) != 0)) {
 				{
 				{
-				State = 26; expr();
+				State = 28; expr();
 				}
 				}
-				State = 31;
+				State = 33;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.La(1);
 			}
-			State = 32; Match(Eof);
+			State = 34; Match(Eof);
 			}
 		}
 		catch (RecognitionException re) {
@@ -149,6 +149,9 @@ public partial class BrainfuckParser : Parser {
 		public ReadContext read() {
 			return GetRuleContext<ReadContext>(0);
 		}
+		public Reset_valueContext reset_value() {
+			return GetRuleContext<Reset_valueContext>(0);
+		}
 		public LoopContext loop() {
 			return GetRuleContext<LoopContext>(0);
 		}
@@ -174,45 +177,49 @@ public partial class BrainfuckParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 41;
-			switch (TokenStream.La(1)) {
-			case NEXT:
+			State = 44;
+			ErrorHandler.Sync(this);
+			switch ( Interpreter.AdaptivePredict(TokenStream,1,Context) ) {
+			case 1:
 				{
-				State = 34; next();
+				State = 36; next();
 				}
 				break;
-			case PREV:
+			case 2:
 				{
-				State = 35; prev();
+				State = 37; prev();
 				}
 				break;
-			case ADD:
+			case 3:
 				{
-				State = 36; seq_inc();
+				State = 38; seq_inc();
 				}
 				break;
-			case SUB:
+			case 4:
 				{
-				State = 37; seq_dec();
+				State = 39; seq_dec();
 				}
 				break;
-			case PRINT:
+			case 5:
 				{
-				State = 38; print();
+				State = 40; print();
 				}
 				break;
-			case READ:
+			case 6:
 				{
-				State = 39; read();
+				State = 41; read();
 				}
 				break;
-			case LOOP:
+			case 7:
 				{
-				State = 40; loop();
+				State = 42; reset_value();
 				}
 				break;
-			default:
-				throw new NoViableAltException(this);
+			case 8:
+				{
+				State = 43; loop();
+				}
+				break;
 			}
 			}
 		}
@@ -251,7 +258,7 @@ public partial class BrainfuckParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 43; Match(NEXT);
+			State = 46; Match(NEXT);
 			}
 		}
 		catch (RecognitionException re) {
@@ -289,7 +296,7 @@ public partial class BrainfuckParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 45; Match(PREV);
+			State = 48; Match(PREV);
 			}
 		}
 		catch (RecognitionException re) {
@@ -327,7 +334,7 @@ public partial class BrainfuckParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 47; Match(ADD);
+			State = 50; Match(ADD);
 			}
 		}
 		catch (RecognitionException re) {
@@ -365,7 +372,7 @@ public partial class BrainfuckParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 49; Match(SUB);
+			State = 52; Match(SUB);
 			}
 		}
 		catch (RecognitionException re) {
@@ -403,7 +410,7 @@ public partial class BrainfuckParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 51; Match(PRINT);
+			State = 54; Match(PRINT);
 			}
 		}
 		catch (RecognitionException re) {
@@ -441,7 +448,7 @@ public partial class BrainfuckParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 53; Match(READ);
+			State = 56; Match(READ);
 			}
 		}
 		catch (RecognitionException re) {
@@ -479,7 +486,7 @@ public partial class BrainfuckParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 55; Match(LOOP);
+			State = 58; Match(LOOP);
 			}
 		}
 		catch (RecognitionException re) {
@@ -517,7 +524,55 @@ public partial class BrainfuckParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 57; Match(ELOOP);
+			State = 60; Match(ELOOP);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class Reset_valueContext : ParserRuleContext {
+		public SloopContext sloop() {
+			return GetRuleContext<SloopContext>(0);
+		}
+		public SubContext sub() {
+			return GetRuleContext<SubContext>(0);
+		}
+		public EloopContext eloop() {
+			return GetRuleContext<EloopContext>(0);
+		}
+		public Reset_valueContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_reset_value; } }
+		public override void EnterRule(IParseTreeListener listener) {
+			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			if (typedListener != null) typedListener.EnterReset_value(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			if (typedListener != null) typedListener.ExitReset_value(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public Reset_valueContext reset_value() {
+		Reset_valueContext _localctx = new Reset_valueContext(Context, State);
+		EnterRule(_localctx, 20, RULE_reset_value);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 62; sloop();
+			State = 63; sub();
+			State = 64; eloop();
 			}
 		}
 		catch (RecognitionException re) {
@@ -562,26 +617,26 @@ public partial class BrainfuckParser : Parser {
 	[RuleVersion(0)]
 	public LoopContext loop() {
 		LoopContext _localctx = new LoopContext(Context, State);
-		EnterRule(_localctx, 20, RULE_loop);
+		EnterRule(_localctx, 22, RULE_loop);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 59; sloop();
-			State = 63;
+			State = 66; sloop();
+			State = 70;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.La(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NEXT) | (1L << PREV) | (1L << ADD) | (1L << SUB) | (1L << PRINT) | (1L << READ) | (1L << LOOP))) != 0)) {
 				{
 				{
-				State = 60; expr();
+				State = 67; expr();
 				}
 				}
-				State = 65;
+				State = 72;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.La(1);
 			}
-			State = 66; eloop();
+			State = 73; eloop();
 			}
 		}
 		catch (RecognitionException re) {
@@ -620,12 +675,12 @@ public partial class BrainfuckParser : Parser {
 	[RuleVersion(0)]
 	public Seq_incContext seq_inc() {
 		Seq_incContext _localctx = new Seq_incContext(Context, State);
-		EnterRule(_localctx, 22, RULE_seq_inc);
+		EnterRule(_localctx, 24, RULE_seq_inc);
 		try {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 69;
+			State = 76;
 			ErrorHandler.Sync(this);
 			_alt = 1;
 			do {
@@ -633,14 +688,14 @@ public partial class BrainfuckParser : Parser {
 				case 1:
 					{
 					{
-					State = 68; add();
+					State = 75; add();
 					}
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
-				State = 71;
+				State = 78;
 				ErrorHandler.Sync(this);
 				_alt = Interpreter.AdaptivePredict(TokenStream,3,Context);
 			} while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.InvalidAltNumber );
@@ -682,12 +737,12 @@ public partial class BrainfuckParser : Parser {
 	[RuleVersion(0)]
 	public Seq_decContext seq_dec() {
 		Seq_decContext _localctx = new Seq_decContext(Context, State);
-		EnterRule(_localctx, 24, RULE_seq_dec);
+		EnterRule(_localctx, 26, RULE_seq_dec);
 		try {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 74;
+			State = 81;
 			ErrorHandler.Sync(this);
 			_alt = 1;
 			do {
@@ -695,14 +750,14 @@ public partial class BrainfuckParser : Parser {
 				case 1:
 					{
 					{
-					State = 73; sub();
+					State = 80; sub();
 					}
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
-				State = 76;
+				State = 83;
 				ErrorHandler.Sync(this);
 				_alt = Interpreter.AdaptivePredict(TokenStream,4,Context);
 			} while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.InvalidAltNumber );
@@ -723,36 +778,38 @@ public partial class BrainfuckParser : Parser {
 	private static string _serializeATN()
 	{
 	    StringBuilder sb = new StringBuilder();
-	    sb.Append("\x3\x430\xD6D1\x8206\xAD2D\x4417\xAEF1\x8D80\xAADD\x3\vQ");
+	    sb.Append("\x3\x430\xD6D1\x8206\xAD2D\x4417\xAEF1\x8D80\xAADD\x3\vX");
 		sb.Append("\x4\x2\t\x2\x4\x3\t\x3\x4\x4\t\x4\x4\x5\t\x5\x4\x6\t\x6\x4\a");
 		sb.Append("\t\a\x4\b\t\b\x4\t\t\t\x4\n\t\n\x4\v\t\v\x4\f\t\f\x4\r\t\r\x4");
-		sb.Append("\xE\t\xE\x3\x2\a\x2\x1E\n\x2\f\x2\xE\x2!\v\x2\x3\x2\x3\x2\x3");
-		sb.Append("\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x5\x3,\n\x3\x3\x4\x3");
-		sb.Append("\x4\x3\x5\x3\x5\x3\x6\x3\x6\x3\a\x3\a\x3\b\x3\b\x3\t\x3\t\x3");
-		sb.Append("\n\x3\n\x3\v\x3\v\x3\f\x3\f\a\f@\n\f\f\f\xE\f\x43\v\f\x3\f\x3");
-		sb.Append("\f\x3\r\x6\rH\n\r\r\r\xE\rI\x3\xE\x6\xEM\n\xE\r\xE\xE\xEN\x3");
-		sb.Append("\xE\x2\x2\xF\x2\x4\x6\b\n\f\xE\x10\x12\x14\x16\x18\x1A\x2\x2");
-		sb.Append("M\x2\x1F\x3\x2\x2\x2\x4+\x3\x2\x2\x2\x6-\x3\x2\x2\x2\b/\x3\x2");
-		sb.Append("\x2\x2\n\x31\x3\x2\x2\x2\f\x33\x3\x2\x2\x2\xE\x35\x3\x2\x2\x2");
-		sb.Append("\x10\x37\x3\x2\x2\x2\x12\x39\x3\x2\x2\x2\x14;\x3\x2\x2\x2\x16");
-		sb.Append("=\x3\x2\x2\x2\x18G\x3\x2\x2\x2\x1AL\x3\x2\x2\x2\x1C\x1E\x5\x4");
-		sb.Append("\x3\x2\x1D\x1C\x3\x2\x2\x2\x1E!\x3\x2\x2\x2\x1F\x1D\x3\x2\x2");
-		sb.Append("\x2\x1F \x3\x2\x2\x2 \"\x3\x2\x2\x2!\x1F\x3\x2\x2\x2\"#\a\x2");
-		sb.Append("\x2\x3#\x3\x3\x2\x2\x2$,\x5\x6\x4\x2%,\x5\b\x5\x2&,\x5\x18\r");
-		sb.Append("\x2\',\x5\x1A\xE\x2(,\x5\xE\b\x2),\x5\x10\t\x2*,\x5\x16\f\x2");
-		sb.Append("+$\x3\x2\x2\x2+%\x3\x2\x2\x2+&\x3\x2\x2\x2+\'\x3\x2\x2\x2+(");
-		sb.Append("\x3\x2\x2\x2+)\x3\x2\x2\x2+*\x3\x2\x2\x2,\x5\x3\x2\x2\x2-.\a");
-		sb.Append("\x3\x2\x2.\a\x3\x2\x2\x2/\x30\a\x4\x2\x2\x30\t\x3\x2\x2\x2\x31");
-		sb.Append("\x32\a\x5\x2\x2\x32\v\x3\x2\x2\x2\x33\x34\a\x6\x2\x2\x34\r\x3");
-		sb.Append("\x2\x2\x2\x35\x36\a\a\x2\x2\x36\xF\x3\x2\x2\x2\x37\x38\a\b\x2");
-		sb.Append("\x2\x38\x11\x3\x2\x2\x2\x39:\a\t\x2\x2:\x13\x3\x2\x2\x2;<\a");
-		sb.Append("\n\x2\x2<\x15\x3\x2\x2\x2=\x41\x5\x12\n\x2>@\x5\x4\x3\x2?>\x3");
-		sb.Append("\x2\x2\x2@\x43\x3\x2\x2\x2\x41?\x3\x2\x2\x2\x41\x42\x3\x2\x2");
-		sb.Append("\x2\x42\x44\x3\x2\x2\x2\x43\x41\x3\x2\x2\x2\x44\x45\x5\x14\v");
-		sb.Append("\x2\x45\x17\x3\x2\x2\x2\x46H\x5\n\x6\x2G\x46\x3\x2\x2\x2HI\x3");
-		sb.Append("\x2\x2\x2IG\x3\x2\x2\x2IJ\x3\x2\x2\x2J\x19\x3\x2\x2\x2KM\x5");
-		sb.Append("\f\a\x2LK\x3\x2\x2\x2MN\x3\x2\x2\x2NL\x3\x2\x2\x2NO\x3\x2\x2");
-		sb.Append("\x2O\x1B\x3\x2\x2\x2\a\x1F+\x41IN");
+		sb.Append("\xE\t\xE\x4\xF\t\xF\x3\x2\a\x2 \n\x2\f\x2\xE\x2#\v\x2\x3\x2");
+		sb.Append("\x3\x2\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x5\x3");
+		sb.Append("/\n\x3\x3\x4\x3\x4\x3\x5\x3\x5\x3\x6\x3\x6\x3\a\x3\a\x3\b\x3");
+		sb.Append("\b\x3\t\x3\t\x3\n\x3\n\x3\v\x3\v\x3\f\x3\f\x3\f\x3\f\x3\r\x3");
+		sb.Append("\r\a\rG\n\r\f\r\xE\rJ\v\r\x3\r\x3\r\x3\xE\x6\xEO\n\xE\r\xE\xE");
+		sb.Append("\xEP\x3\xF\x6\xFT\n\xF\r\xF\xE\xFU\x3\xF\x2\x2\x10\x2\x4\x6");
+		sb.Append("\b\n\f\xE\x10\x12\x14\x16\x18\x1A\x1C\x2\x2T\x2!\x3\x2\x2\x2");
+		sb.Append("\x4.\x3\x2\x2\x2\x6\x30\x3\x2\x2\x2\b\x32\x3\x2\x2\x2\n\x34");
+		sb.Append("\x3\x2\x2\x2\f\x36\x3\x2\x2\x2\xE\x38\x3\x2\x2\x2\x10:\x3\x2");
+		sb.Append("\x2\x2\x12<\x3\x2\x2\x2\x14>\x3\x2\x2\x2\x16@\x3\x2\x2\x2\x18");
+		sb.Append("\x44\x3\x2\x2\x2\x1AN\x3\x2\x2\x2\x1CS\x3\x2\x2\x2\x1E \x5\x4");
+		sb.Append("\x3\x2\x1F\x1E\x3\x2\x2\x2 #\x3\x2\x2\x2!\x1F\x3\x2\x2\x2!\"");
+		sb.Append("\x3\x2\x2\x2\"$\x3\x2\x2\x2#!\x3\x2\x2\x2$%\a\x2\x2\x3%\x3\x3");
+		sb.Append("\x2\x2\x2&/\x5\x6\x4\x2\'/\x5\b\x5\x2(/\x5\x1A\xE\x2)/\x5\x1C");
+		sb.Append("\xF\x2*/\x5\xE\b\x2+/\x5\x10\t\x2,/\x5\x16\f\x2-/\x5\x18\r\x2");
+		sb.Append(".&\x3\x2\x2\x2.\'\x3\x2\x2\x2.(\x3\x2\x2\x2.)\x3\x2\x2\x2.*");
+		sb.Append("\x3\x2\x2\x2.+\x3\x2\x2\x2.,\x3\x2\x2\x2.-\x3\x2\x2\x2/\x5\x3");
+		sb.Append("\x2\x2\x2\x30\x31\a\x3\x2\x2\x31\a\x3\x2\x2\x2\x32\x33\a\x4");
+		sb.Append("\x2\x2\x33\t\x3\x2\x2\x2\x34\x35\a\x5\x2\x2\x35\v\x3\x2\x2\x2");
+		sb.Append("\x36\x37\a\x6\x2\x2\x37\r\x3\x2\x2\x2\x38\x39\a\a\x2\x2\x39");
+		sb.Append("\xF\x3\x2\x2\x2:;\a\b\x2\x2;\x11\x3\x2\x2\x2<=\a\t\x2\x2=\x13");
+		sb.Append("\x3\x2\x2\x2>?\a\n\x2\x2?\x15\x3\x2\x2\x2@\x41\x5\x12\n\x2\x41");
+		sb.Append("\x42\x5\f\a\x2\x42\x43\x5\x14\v\x2\x43\x17\x3\x2\x2\x2\x44H");
+		sb.Append("\x5\x12\n\x2\x45G\x5\x4\x3\x2\x46\x45\x3\x2\x2\x2GJ\x3\x2\x2");
+		sb.Append("\x2H\x46\x3\x2\x2\x2HI\x3\x2\x2\x2IK\x3\x2\x2\x2JH\x3\x2\x2");
+		sb.Append("\x2KL\x5\x14\v\x2L\x19\x3\x2\x2\x2MO\x5\n\x6\x2NM\x3\x2\x2\x2");
+		sb.Append("OP\x3\x2\x2\x2PN\x3\x2\x2\x2PQ\x3\x2\x2\x2Q\x1B\x3\x2\x2\x2");
+		sb.Append("RT\x5\f\a\x2SR\x3\x2\x2\x2TU\x3\x2\x2\x2US\x3\x2\x2\x2UV\x3");
+		sb.Append("\x2\x2\x2V\x1D\x3\x2\x2\x2\a!.HPU");
 	    return sb.ToString();
 	}
 

@@ -131,6 +131,16 @@ public interface IBrainfuckListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitEloop([NotNull] BrainfuckParser.EloopContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="BrainfuckParser.reset_value"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterReset_value([NotNull] BrainfuckParser.Reset_valueContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="BrainfuckParser.reset_value"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitReset_value([NotNull] BrainfuckParser.Reset_valueContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="BrainfuckParser.loop"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

@@ -54,8 +54,7 @@ namespace Compiler
             A("ldloc.0");
             A("ldloc.1");
             A("ldelem.i4");
-            Result.AppendLine("call void [mscorlib] System.Console::Write(char)");
-            
+            Result.AppendLine("call void [mscorlib] System.Console::Write(char)");            
 
             base.EnterPrint(context);
         }
@@ -168,6 +167,16 @@ namespace Compiler
             A("stloc.3");
 
             base.EnterEloop(context);
+        }
+
+        public override void EnterReset_value([NotNull] BrainfuckParser.Reset_valueContext context)
+        {
+            A("ldloc.0");
+            A("ldloc.1");
+            A("ldc.i4.0");
+            A("stelem.i4");
+
+            base.EnterReset_value(context);
         }
 
         private void A(String command)
