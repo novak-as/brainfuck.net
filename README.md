@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/novak-as/brainfuck.net.svg?branch=master)](https://travis-ci.org/novak-as/brainfuck.net)
+
 # brainfuck.net
 
 ##Usage:
