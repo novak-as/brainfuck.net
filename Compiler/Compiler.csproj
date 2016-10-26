@@ -52,7 +52,8 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Visitor.cs" />
+    <Compile Include="Visitors\Visitor.cs" />
+    <Compile Include="Visitors\VisitorOptimized.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

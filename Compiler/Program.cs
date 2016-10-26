@@ -57,7 +57,7 @@ namespace Compiler
             CommonTokenStream tokenStream = new CommonTokenStream(lexer);
             BrainfuckParser parser = new BrainfuckParser(tokenStream);
 
-            var bfVisitor = new Visitor();
+            var bfVisitor = new VisitorOptimized();
             parser.AddParseListener(bfVisitor);
 
             var lines = new StringBuilder();

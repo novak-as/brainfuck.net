@@ -59,34 +59,7 @@ namespace Compiler
             base.EnterPrint(context);
         }
 
-        public override void ExitSeq_inc([NotNull] BrainfuckParser.Seq_incContext context)
-        {
-            A("ldloc.0");
-            A("ldloc.1");
-            A("ldloc.0");
-            A("ldloc.1");
-            A("ldelem.i4");
-            A(string.Format("ldc.i4.s {0}",1+context.Stop.StartIndex-context.Start.StartIndex));
-            A("add");
-            A("stelem.i4");
-            base.ExitSeq_inc(context);
-        }
 
-        public override void ExitSeq_dec([NotNull] BrainfuckParser.Seq_decContext context)
-        {
-            A("ldloc.0");
-            A("ldloc.1");
-            A("ldloc.0");
-            A("ldloc.1");
-            A("ldelem.i4");
-            A(string.Format("ldc.i4.s {0}", 1+context.Stop.StartIndex - context.Start.StartIndex));
-            A("sub");
-            A("stelem.i4");
-
-            base.EnterSeq_dec(context);
-        }
-
-        /*
         public override void EnterAdd([NotNull] BrainfuckParser.AddContext context)
         {
             A("ldloc.0");
@@ -99,7 +72,7 @@ namespace Compiler
             A("stelem.i4");
             base.EnterAdd(context);
         }
-        */
+
 
         public override void EnterNext([NotNull] BrainfuckParser.NextContext context)
         {
@@ -119,7 +92,7 @@ namespace Compiler
             base.EnterPrev(context);
         }
 
-        /*
+
         public override void EnterSub([NotNull] BrainfuckParser.SubContext context)
         {
             A("ldloc.0");
@@ -131,7 +104,7 @@ namespace Compiler
             A("sub");
             A("stelem.i4");
             base.EnterSub(context);
-        }*/
+        }
 
         public override void EnterSloop([NotNull] BrainfuckParser.SloopContext context)
         {
@@ -167,16 +140,6 @@ namespace Compiler
             A("stloc.3");
 
             base.EnterEloop(context);
-        }
-
-        public override void EnterReset_value([NotNull] BrainfuckParser.Reset_valueContext context)
-        {
-            A("ldloc.0");
-            A("ldloc.1");
-            A("ldc.i4.0");
-            A("stelem.i4");
-
-            base.EnterReset_value(context);
         }
 
         private void A(String command)

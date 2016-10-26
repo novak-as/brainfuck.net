@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from grammars/Brainfuck.g4 by ANTLR 4.5.3
+// Generated from grammars/BrainfuckOptimized.g4 by ANTLR 4.5.3
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -31,7 +31,7 @@ using DFA = Antlr4.Runtime.Dfa.DFA;
 
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.5.3")]
 [System.CLSCompliant(false)]
-public partial class BrainfuckParser : Parser {
+public partial class BrainfuckOptimizedParser : Parser {
 	public const int
 		NEXT=1, PREV=2, ADD=3, SUB=4, PRINT=5, READ=6, LOOP=7, ELOOP=8, WS=9;
 	public const int
@@ -61,19 +61,19 @@ public partial class BrainfuckParser : Parser {
 		}
 	}
 
-	public override string GrammarFileName { get { return "Brainfuck.g4"; } }
+	public override string GrammarFileName { get { return "BrainfuckOptimized.g4"; } }
 
 	public override string[] RuleNames { get { return ruleNames; } }
 
 	public override string SerializedAtn { get { return _serializedATN; } }
 
-	public BrainfuckParser(ITokenStream input)
+	public BrainfuckOptimizedParser(ITokenStream input)
 		: base(input)
 	{
 		Interpreter = new ParserATNSimulator(this,_ATN);
 	}
 	public partial class AnalyzeContext : ParserRuleContext {
-		public ITerminalNode Eof() { return GetToken(BrainfuckParser.Eof, 0); }
+		public ITerminalNode Eof() { return GetToken(BrainfuckOptimizedParser.Eof, 0); }
 		public ExprContext[] expr() {
 			return GetRuleContexts<ExprContext>();
 		}
@@ -86,11 +86,11 @@ public partial class BrainfuckParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_analyze; } }
 		public override void EnterRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.EnterAnalyze(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.ExitAnalyze(this);
 		}
 	}
@@ -161,11 +161,11 @@ public partial class BrainfuckParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_expr; } }
 		public override void EnterRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.EnterExpr(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.ExitExpr(this);
 		}
 	}
@@ -235,18 +235,18 @@ public partial class BrainfuckParser : Parser {
 	}
 
 	public partial class NextContext : ParserRuleContext {
-		public ITerminalNode NEXT() { return GetToken(BrainfuckParser.NEXT, 0); }
+		public ITerminalNode NEXT() { return GetToken(BrainfuckOptimizedParser.NEXT, 0); }
 		public NextContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_next; } }
 		public override void EnterRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.EnterNext(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.ExitNext(this);
 		}
 	}
@@ -273,18 +273,18 @@ public partial class BrainfuckParser : Parser {
 	}
 
 	public partial class PrevContext : ParserRuleContext {
-		public ITerminalNode PREV() { return GetToken(BrainfuckParser.PREV, 0); }
+		public ITerminalNode PREV() { return GetToken(BrainfuckOptimizedParser.PREV, 0); }
 		public PrevContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_prev; } }
 		public override void EnterRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.EnterPrev(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.ExitPrev(this);
 		}
 	}
@@ -311,18 +311,18 @@ public partial class BrainfuckParser : Parser {
 	}
 
 	public partial class AddContext : ParserRuleContext {
-		public ITerminalNode ADD() { return GetToken(BrainfuckParser.ADD, 0); }
+		public ITerminalNode ADD() { return GetToken(BrainfuckOptimizedParser.ADD, 0); }
 		public AddContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_add; } }
 		public override void EnterRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.EnterAdd(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.ExitAdd(this);
 		}
 	}
@@ -349,18 +349,18 @@ public partial class BrainfuckParser : Parser {
 	}
 
 	public partial class SubContext : ParserRuleContext {
-		public ITerminalNode SUB() { return GetToken(BrainfuckParser.SUB, 0); }
+		public ITerminalNode SUB() { return GetToken(BrainfuckOptimizedParser.SUB, 0); }
 		public SubContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_sub; } }
 		public override void EnterRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.EnterSub(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.ExitSub(this);
 		}
 	}
@@ -387,18 +387,18 @@ public partial class BrainfuckParser : Parser {
 	}
 
 	public partial class PrintContext : ParserRuleContext {
-		public ITerminalNode PRINT() { return GetToken(BrainfuckParser.PRINT, 0); }
+		public ITerminalNode PRINT() { return GetToken(BrainfuckOptimizedParser.PRINT, 0); }
 		public PrintContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_print; } }
 		public override void EnterRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.EnterPrint(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.ExitPrint(this);
 		}
 	}
@@ -425,18 +425,18 @@ public partial class BrainfuckParser : Parser {
 	}
 
 	public partial class ReadContext : ParserRuleContext {
-		public ITerminalNode READ() { return GetToken(BrainfuckParser.READ, 0); }
+		public ITerminalNode READ() { return GetToken(BrainfuckOptimizedParser.READ, 0); }
 		public ReadContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_read; } }
 		public override void EnterRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.EnterRead(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.ExitRead(this);
 		}
 	}
@@ -463,18 +463,18 @@ public partial class BrainfuckParser : Parser {
 	}
 
 	public partial class SloopContext : ParserRuleContext {
-		public ITerminalNode LOOP() { return GetToken(BrainfuckParser.LOOP, 0); }
+		public ITerminalNode LOOP() { return GetToken(BrainfuckOptimizedParser.LOOP, 0); }
 		public SloopContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_sloop; } }
 		public override void EnterRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.EnterSloop(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.ExitSloop(this);
 		}
 	}
@@ -501,18 +501,18 @@ public partial class BrainfuckParser : Parser {
 	}
 
 	public partial class EloopContext : ParserRuleContext {
-		public ITerminalNode ELOOP() { return GetToken(BrainfuckParser.ELOOP, 0); }
+		public ITerminalNode ELOOP() { return GetToken(BrainfuckOptimizedParser.ELOOP, 0); }
 		public EloopContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_eloop; } }
 		public override void EnterRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.EnterEloop(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.ExitEloop(this);
 		}
 	}
@@ -554,11 +554,11 @@ public partial class BrainfuckParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_reset_value; } }
 		public override void EnterRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.EnterReset_value(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.ExitReset_value(this);
 		}
 	}
@@ -605,11 +605,11 @@ public partial class BrainfuckParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_loop; } }
 		public override void EnterRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.EnterLoop(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.ExitLoop(this);
 		}
 	}
@@ -663,11 +663,11 @@ public partial class BrainfuckParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_seq_inc; } }
 		public override void EnterRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.EnterSeq_inc(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.ExitSeq_inc(this);
 		}
 	}
@@ -725,11 +725,11 @@ public partial class BrainfuckParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_seq_dec; } }
 		public override void EnterRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.EnterSeq_dec(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
-			IBrainfuckListener typedListener = listener as IBrainfuckListener;
+			IBrainfuckOptimizedListener typedListener = listener as IBrainfuckOptimizedListener;
 			if (typedListener != null) typedListener.ExitSeq_dec(this);
 		}
 	}

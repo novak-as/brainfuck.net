@@ -19,155 +19,164 @@
 // Ambiguous reference in cref attribute
 #pragma warning disable 419
 
+
 using Antlr4.Runtime.Misc;
-using IParseTreeListener = Antlr4.Runtime.Tree.IParseTreeListener;
+using IErrorNode = Antlr4.Runtime.Tree.IErrorNode;
+using ITerminalNode = Antlr4.Runtime.Tree.ITerminalNode;
 using IToken = Antlr4.Runtime.IToken;
+using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 
 /// <summary>
-/// This interface defines a complete listener for a parse tree produced by
-/// <see cref="BrainfuckParser"/>.
+/// This class provides an empty implementation of <see cref="IBrainfuckListener"/>,
+/// which can be extended to create a listener which only needs to handle a subset
+/// of the available methods.
 /// </summary>
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.5.3")]
 [System.CLSCompliant(false)]
-public interface IBrainfuckListener : IParseTreeListener {
+public partial class BrainfuckBaseListener : IBrainfuckListener {
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="BrainfuckParser.analyze"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterAnalyze([NotNull] BrainfuckParser.AnalyzeContext context);
+	public virtual void EnterAnalyze([NotNull] BrainfuckParser.AnalyzeContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by <see cref="BrainfuckParser.analyze"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitAnalyze([NotNull] BrainfuckParser.AnalyzeContext context);
+	public virtual void ExitAnalyze([NotNull] BrainfuckParser.AnalyzeContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="BrainfuckParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterExpr([NotNull] BrainfuckParser.ExprContext context);
+	public virtual void EnterExpr([NotNull] BrainfuckParser.ExprContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by <see cref="BrainfuckParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitExpr([NotNull] BrainfuckParser.ExprContext context);
+	public virtual void ExitExpr([NotNull] BrainfuckParser.ExprContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="BrainfuckParser.next"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterNext([NotNull] BrainfuckParser.NextContext context);
+	public virtual void EnterNext([NotNull] BrainfuckParser.NextContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by <see cref="BrainfuckParser.next"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitNext([NotNull] BrainfuckParser.NextContext context);
+	public virtual void ExitNext([NotNull] BrainfuckParser.NextContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="BrainfuckParser.prev"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterPrev([NotNull] BrainfuckParser.PrevContext context);
+	public virtual void EnterPrev([NotNull] BrainfuckParser.PrevContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by <see cref="BrainfuckParser.prev"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitPrev([NotNull] BrainfuckParser.PrevContext context);
+	public virtual void ExitPrev([NotNull] BrainfuckParser.PrevContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="BrainfuckParser.add"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterAdd([NotNull] BrainfuckParser.AddContext context);
+	public virtual void EnterAdd([NotNull] BrainfuckParser.AddContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by <see cref="BrainfuckParser.add"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitAdd([NotNull] BrainfuckParser.AddContext context);
+	public virtual void ExitAdd([NotNull] BrainfuckParser.AddContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="BrainfuckParser.sub"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterSub([NotNull] BrainfuckParser.SubContext context);
+	public virtual void EnterSub([NotNull] BrainfuckParser.SubContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by <see cref="BrainfuckParser.sub"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitSub([NotNull] BrainfuckParser.SubContext context);
+	public virtual void ExitSub([NotNull] BrainfuckParser.SubContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="BrainfuckParser.print"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterPrint([NotNull] BrainfuckParser.PrintContext context);
+	public virtual void EnterPrint([NotNull] BrainfuckParser.PrintContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by <see cref="BrainfuckParser.print"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitPrint([NotNull] BrainfuckParser.PrintContext context);
+	public virtual void ExitPrint([NotNull] BrainfuckParser.PrintContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="BrainfuckParser.read"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterRead([NotNull] BrainfuckParser.ReadContext context);
+	public virtual void EnterRead([NotNull] BrainfuckParser.ReadContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by <see cref="BrainfuckParser.read"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitRead([NotNull] BrainfuckParser.ReadContext context);
+	public virtual void ExitRead([NotNull] BrainfuckParser.ReadContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="BrainfuckParser.sloop"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterSloop([NotNull] BrainfuckParser.SloopContext context);
+	public virtual void EnterSloop([NotNull] BrainfuckParser.SloopContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by <see cref="BrainfuckParser.sloop"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitSloop([NotNull] BrainfuckParser.SloopContext context);
+	public virtual void ExitSloop([NotNull] BrainfuckParser.SloopContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="BrainfuckParser.eloop"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterEloop([NotNull] BrainfuckParser.EloopContext context);
+	public virtual void EnterEloop([NotNull] BrainfuckParser.EloopContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by <see cref="BrainfuckParser.eloop"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitEloop([NotNull] BrainfuckParser.EloopContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="BrainfuckParser.reset_value"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterReset_value([NotNull] BrainfuckParser.Reset_valueContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="BrainfuckParser.reset_value"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitReset_value([NotNull] BrainfuckParser.Reset_valueContext context);
+	public virtual void ExitEloop([NotNull] BrainfuckParser.EloopContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="BrainfuckParser.loop"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterLoop([NotNull] BrainfuckParser.LoopContext context);
+	public virtual void EnterLoop([NotNull] BrainfuckParser.LoopContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by <see cref="BrainfuckParser.loop"/>.
+	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitLoop([NotNull] BrainfuckParser.LoopContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="BrainfuckParser.seq_inc"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterSeq_inc([NotNull] BrainfuckParser.Seq_incContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="BrainfuckParser.seq_inc"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitSeq_inc([NotNull] BrainfuckParser.Seq_incContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="BrainfuckParser.seq_dec"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterSeq_dec([NotNull] BrainfuckParser.Seq_decContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="BrainfuckParser.seq_dec"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitSeq_dec([NotNull] BrainfuckParser.Seq_decContext context);
+	public virtual void ExitLoop([NotNull] BrainfuckParser.LoopContext context) { }
+
+	/// <inheritdoc/>
+	/// <remarks>The default implementation does nothing.</remarks>
+	public virtual void EnterEveryRule([NotNull] ParserRuleContext context) { }
+	/// <inheritdoc/>
+	/// <remarks>The default implementation does nothing.</remarks>
+	public virtual void ExitEveryRule([NotNull] ParserRuleContext context) { }
+	/// <inheritdoc/>
+	/// <remarks>The default implementation does nothing.</remarks>
+	public virtual void VisitTerminal([NotNull] ITerminalNode node) { }
+	/// <inheritdoc/>
+	/// <remarks>The default implementation does nothing.</remarks>
+	public virtual void VisitErrorNode([NotNull] IErrorNode node) { }
 }

@@ -43,15 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ANTLR\BrainfuckBaseListener.cs" />
-    <Compile Include="ANTLR\BrainfuckLexer.cs" />
-    <Compile Include="ANTLR\BrainfuckListener.cs" />
-    <Compile Include="ANTLR\BrainfuckParser.cs" />
+    <Compile Include="ANTLR\BrainfuckOptimized\BrainfuckOptimizedBaseListener.cs" />
+    <Compile Include="ANTLR\BrainfuckOptimized\BrainfuckOptimizedLexer.cs" />
+    <Compile Include="ANTLR\BrainfuckOptimized\BrainfuckOptimizedListener.cs" />
+    <Compile Include="ANTLR\BrainfuckOptimized\BrainfuckOptimizedParser.cs" />
+    <Compile Include="ANTLR\Brainfuck\BrainfuckBaseListener.cs" />
+    <Compile Include="ANTLR\Brainfuck\BrainfuckLexer.cs" />
+    <Compile Include="ANTLR\Brainfuck\BrainfuckListener.cs" />
+    <Compile Include="ANTLR\Brainfuck\BrainfuckParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Grammars\Brainfuck.g4" />
+    <None Include="Grammars\BrainfuckOptimized.g4" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
