@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -42,67 +43,69 @@ namespace Compiler
             if (_showHelp || String.IsNullOrEmpty(_inputFile))
             {
                 ShowHelp(optionSet);
-                Environment.Exit(0);
+                Console.ReadKey();
+                return;
             }
 
             FileInfo inputFile = new FileInfo(_inputFile);
-            FileInfo outputFile = new FileInfo(inputFile.FullName.Replace(inputFile.Extension, ".il"));
+            FileInfo outputFile = new FileInfo(inputFile.FullName.Replace(inputFile.Extension, ".exe"));
 
             var text = File.ReadAllText(inputFile.FullName);
 
             Console.WriteLine("Compiling...");
 
             AntlrInputStream inputStream = new AntlrInputStream(text);
-            BrainfuckLexer lexer = new BrainfuckLexer(inputStream);
+            BrainfuckOptimizedLexer lexer = new BrainfuckOptimizedLexer(inputStream);
             CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-            BrainfuckParser parser = new BrainfuckParser(tokenStream);
+            BrainfuckOptimizedParser parser = new BrainfuckOptimizedParser(tokenStream);
 
-            var bfVisitor = new VisitorOptimized();
+            var assembly = AppDomain.CurrentDomain.DefineDynamicAssembly(
+                new AssemblyName("Test, Version=1.0.0.0"),
+                AssemblyBuilderAccess.Save);
+
+            var module = assembly.DefineDynamicModule("Test.Test", outputFile.Name);
+            var dclass = module.DefineType("Program", TypeAttributes.Abstract | TypeAttributes.Sealed | TypeAttributes.Public);
+
+            var method = dclass.DefineMethod("main", MethodAttributes.Static, typeof(void), new Type[] { });
+            method.SetCustomAttribute(new CustomAttributeBuilder(typeof(STAThreadAttribute).GetConstructor(new Type[] { }), new object[] { }));
+
+            assembly.SetEntryPoint(method);
+
+            //method.DefineParameter(1, ParameterAttributes.None, "args");
+
+            
+            var body = method.GetILGenerator();
+
+            body.DeclareLocal(typeof(Int32[])); // [0] int32 memory
+            body.DeclareLocal(typeof(Int32)); // [1] int32 currentPosition
+            body.DeclareLocal(typeof(Int32[])); // [2] int32[] loopsStack
+            body.DeclareLocal(typeof(Int32)); // [3] int32 loopPosition
+
+            body.Emit(OpCodes.Ldc_I4_S, _availableMemory);
+            body.Emit(OpCodes.Newarr, typeof(Int32));
+            body.Emit(OpCodes.Stloc_0);
+
+            body.Emit(OpCodes.Ldc_I4_0);
+            body.Emit(OpCodes.Stloc_1);
+
+            body.Emit(OpCodes.Ldc_I4_S, _maxDepthNested);
+            body.Emit(OpCodes.Newarr, typeof(Int32));
+            body.Emit(OpCodes.Stloc_2);
+
+            body.Emit(OpCodes.Ldc_I4_0);
+            body.Emit(OpCodes.Stloc_3);
+
+
+            var bfVisitor = new VisitorOptimized(body);
             parser.AddParseListener(bfVisitor);
-
-            var lines = new StringBuilder();
-            lines.AppendLine(".assembly extern mscorlib {}");
-            lines.AppendLine(".assembly Test");
-            lines.AppendLine("{");
-            lines.AppendLine(".ver 1:0:1:0");
-            lines.AppendLine("}");
-            lines.AppendLine(".module test.exe");
-            lines.AppendLine(".method static void main() cil managed");
-            lines.AppendLine("{");
-            lines.AppendLine(".maxstack 8");
-            lines.AppendLine(".entrypoint");
-            lines.AppendLine(".locals init ([0] int32[] memory,");
-            lines.AppendLine("[1] int32 currentPosition,");
-            lines.AppendLine("[2] int32[] loopStack,");
-            lines.AppendLine("[3] int32 loopPosition)");
-
-            lines.AppendFormat("ldc.i4.s {0}\n", _availableMemory);
-            lines.AppendLine("newarr [mscorlib]System.Int32");
-            lines.AppendLine("stloc.0");
-
-            lines.AppendLine("ldc.i4.0");
-            lines.AppendLine("stloc.1");
-
-            lines.AppendFormat("ldc.i4.s {0}\n", _maxDepthNested);
-            lines.AppendLine("newarr [mscorlib]System.Int32");
-            lines.AppendLine("stloc.2");
-
-            lines.AppendLine("ldc.i4.0");
-            lines.AppendLine("stloc.3");
 
             parser.analyze();
 
-            lines.AppendLine(bfVisitor.Result.ToString());
+            body.Emit(OpCodes.Ret); 
 
-            lines.AppendLine("ret");
-            lines.Append("}");
+            dclass.CreateType();
 
-            File.WriteAllText(outputFile.FullName, lines.ToString());
-
-            ProcessStartInfo proc = new System.Diagnostics.ProcessStartInfo();
-            proc.FileName = Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetAssembly(typeof(string)).CodeBase).AbsolutePath), "ilasm.exe");
-            proc.Arguments = outputFile.FullName;
-            Process.Start(proc);
+            assembly.Save(outputFile.Name);
 
             Console.WriteLine("Done");
         }
