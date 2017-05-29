@@ -50,7 +50,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Grammars\Brainfuck.g4" />
     <None Include="Grammars\BrainfuckOptimized.g4" />
   </ItemGroup>
   <ItemGroup />

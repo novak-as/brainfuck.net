@@ -17,6 +17,8 @@ namespace Compiler
         private static int _availableMemory = 100;
         private static int _maxDepthNested = 10;
         private static string _inputFile;
+        private static string _assemblyName = "Program";
+        private static uint _version = 1;
         private static bool _showHelp = false;
 
         static void Main(string[] args)
@@ -25,6 +27,8 @@ namespace Compiler
             var optionSet = new OptionSet()
             {
                 { "f|file=", "{file} with brainfuck sources", v=> { _inputFile = v; } },
+                { "assembly_name=", "assembly name", v=> { _assemblyName = v; } },
+                { "v|version=","version", v=>{ UInt32.TryParse(v, out _version); } },
                 { "m|memory=", "available memory", v=> { _availableMemory = Int32.Parse(v); } },
                 { "n|nested=", "max depth of nested loop", v=> { _maxDepthNested = Int32.Parse(v); } },
                 { "h|help", "show this message", v=> _showHelp = v != null }
@@ -60,10 +64,10 @@ namespace Compiler
             BrainfuckOptimizedParser parser = new BrainfuckOptimizedParser(tokenStream);
 
             var assembly = AppDomain.CurrentDomain.DefineDynamicAssembly(
-                new AssemblyName("Test, Version=1.0.0.0"),
+                new AssemblyName(string.Format("{0}, Version={1}",_assemblyName, _version)),
                 AssemblyBuilderAccess.Save);
 
-            var module = assembly.DefineDynamicModule("Test.Test", outputFile.Name);
+            var module = assembly.DefineDynamicModule(_assemblyName, outputFile.Name);
             var dclass = module.DefineType("Program", TypeAttributes.Abstract | TypeAttributes.Sealed | TypeAttributes.Public);
 
             var method = dclass.DefineMethod("main", MethodAttributes.Static, typeof(void), new Type[] { });
@@ -112,7 +116,7 @@ namespace Compiler
 
         private static void ShowHelp(OptionSet options)
         {
-            Console.WriteLine("Usage: compiler -f filename [-m memory_size] [-n max_nested_depth]");
+            Console.WriteLine("Usage: compiler -f filename [options]");
             Console.WriteLine("Options:");
             options.WriteOptionDescriptions(Console.Out);
         }
