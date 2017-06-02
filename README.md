@@ -2,22 +2,27 @@
 
 # brainfuck.net
 
-##Usage:
+### Usage:
 
-  `compiler -f filename [-m memory_size] [-n max_nested_depth]`
+```
+compiler -f filename [options]
 
-##Example:
+Options:
+  -f, --file=file            file with brainfuck sources
+      --assembly_name=VALUE  assembly name
+  -v, --version=VALUE        version
+  -m, --memory=VALUE         available memory
+  -n, --nested=VALUE         max depth of nested loop
+  -h, --help                 show this message
+```
+
+### Example:
 
 `compiler -f test.bf -m 50`
 
-#####Input:
+###### Input:
 
-* test.bf
+`++++++++++[>+++++++>++++++++++>+++<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.`
 
-   `++++++++++[>+++++++>++++++++++>+++<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.`
-
-#####Compiled program output:
-	`Hello World!`
-
-
-
+###### Compiled program output: 
+`Hello World!`
