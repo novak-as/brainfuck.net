@@ -33,22 +33,6 @@ namespace Compiler
 
         public override void EnterPrint([NotNull] BrainfuckOptimizedParser.PrintContext context)
         {
-            //system output for debug mode
-
-            /*
-            A("ldstr \"[\"");
-            A("call void [mscorlib] System.Console::Write(string)");
-            A("ldloc.1");
-            A("call void [mscorlib] System.Console::Write(int32)");
-            A("ldstr \"] \"");
-            A("call void [mscorlib] System.Console::Write(string)");
-            A("ldloc.0");
-            A("ldloc.1");
-            A("ldelem.i4");
-            A("call void [mscorlib] System.Console::WriteLine(int32)");
-            */
-
-            //original output
 
             _gen.Emit(OpCodes.Ldloc_0);
             _gen.Emit(OpCodes.Ldloc_1);
