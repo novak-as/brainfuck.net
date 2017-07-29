@@ -1,4 +1,5 @@
 ﻿using Antlr4.Runtime;
+using Compiler.Visitors;
 using NDesk.Options;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace Compiler
 {
     class Program
     {
+        private static bool _isCycled = false;
         private static int _availableMemory = 100;
         private static int _maxDepthNested = 10;
         private static string _inputFile;
@@ -31,6 +33,7 @@ namespace Compiler
                 { "v|version=","version", v=>{ UInt32.TryParse(v, out _version); } },
                 { "m|memory=", "available memory", v=> { _availableMemory = Int32.Parse(v); } },
                 { "n|nested=", "max depth of nested loop", v=> { _maxDepthNested = Int32.Parse(v); } },
+                { "c|cycled", "is cycled", v=> _isCycled = v !=null },
                 { "h|help", "show this message", v=> _showHelp = v != null }
             };
 
@@ -100,7 +103,7 @@ namespace Compiler
             body.Emit(OpCodes.Stloc_3);
 
 
-            var bfVisitor = new VisitorOptimized(body);
+            var bfVisitor = new VisitorOptimized(body, new VisitorSettings(_availableMemory, _isCycled));
             parser.AddParseListener(bfVisitor);
 
             parser.analyze();

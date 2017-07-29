@@ -6,19 +6,22 @@ using System.Threading.Tasks;
 using Antlr4.Runtime.Misc;
 using System.Reflection.Emit;
 using System.Reflection;
+using Compiler.Visitors;
 
 namespace Compiler
 {
     public class VisitorOptimized: BrainfuckOptimizedBaseListener
     {
+        private VisitorSettings _settings;
         private Stack<Label> _loops = new Stack<Label>();
         private int _loopId = 0;
 
         private ILGenerator _gen;
 
-        public VisitorOptimized(ILGenerator generator)
+        public VisitorOptimized(ILGenerator generator, VisitorSettings settings)
         {
             _gen = generator;
+            _settings = settings;
         }
 
         public override void EnterRead([NotNull] BrainfuckOptimizedParser.ReadContext context)
@@ -59,8 +62,7 @@ namespace Compiler
         }
 
         public override void ExitSeq_dec([NotNull] BrainfuckOptimizedParser.Seq_decContext context)
-        {
-
+        {            
             _gen.Emit(OpCodes.Ldloc_0);
             _gen.Emit(OpCodes.Ldloc_1);
             _gen.Emit(OpCodes.Ldloc_0);
@@ -70,25 +72,71 @@ namespace Compiler
             _gen.Emit(OpCodes.Sub);
             _gen.Emit(OpCodes.Stelem_I4);
 
+
             base.EnterSeq_dec(context);
         }
 
         public override void EnterNext([NotNull] BrainfuckOptimizedParser.NextContext context)
         {
+            var jumtToStartLabel = _gen.DefineLabel();
+            var endLabel = _gen.DefineLabel();
+
+            if (_settings.IsCycled)
+            {
+                _gen.Emit(OpCodes.Ldloc_1);
+                _gen.Emit(OpCodes.Ldc_I4, _settings.AvailableMemory - 1);
+                _gen.Emit(OpCodes.Ceq);
+                _gen.Emit(OpCodes.Brtrue_S, jumtToStartLabel);
+            }
+
             _gen.Emit(OpCodes.Ldloc_1);
             _gen.Emit(OpCodes.Ldc_I4_1);
             _gen.Emit(OpCodes.Add);
             _gen.Emit(OpCodes.Stloc_1);
+
+            if (_settings.IsCycled)
+            {
+                _gen.Emit(OpCodes.Br_S, endLabel);
+
+                _gen.MarkLabel(jumtToStartLabel);
+                _gen.Emit(OpCodes.Ldc_I4_0);
+                _gen.Emit(OpCodes.Stloc_1);
+
+                _gen.MarkLabel(endLabel);
+            }
 
             base.EnterNext(context);
         }
 
         public override void EnterPrev([NotNull] BrainfuckOptimizedParser.PrevContext context)
         {
+            var jumtToEndLabel = _gen.DefineLabel();
+            var endLabel = _gen.DefineLabel();
+
+            if (_settings.IsCycled)
+            {
+                _gen.Emit(OpCodes.Ldloc_1);
+                _gen.Emit(OpCodes.Ldc_I4_0);
+                _gen.Emit(OpCodes.Ceq);
+                _gen.Emit(OpCodes.Brtrue_S, jumtToEndLabel);
+            }
+
             _gen.Emit(OpCodes.Ldloc_1);
             _gen.Emit(OpCodes.Ldc_I4_1);
             _gen.Emit(OpCodes.Sub);
             _gen.Emit(OpCodes.Stloc_1);
+
+            if (_settings.IsCycled)
+            {
+                _gen.Emit(OpCodes.Br_S, endLabel);
+
+                _gen.MarkLabel(jumtToEndLabel);
+                _gen.Emit(OpCodes.Ldc_I4, _settings.AvailableMemory - 1);
+                _gen.Emit(OpCodes.Stloc_1);
+
+                _gen.MarkLabel(endLabel);
+            }
+
             base.EnterPrev(context);
         }
 
