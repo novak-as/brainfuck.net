@@ -13,6 +13,7 @@ Options:
   -v, --version=VALUE        version
   -m, --memory=VALUE         available memory
   -n, --nested=VALUE         max depth of nested loop
+  -c, --cycled               is cycled
   -h, --help                 show this message
 ```
 
