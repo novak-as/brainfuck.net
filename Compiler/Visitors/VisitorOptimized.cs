@@ -14,7 +14,6 @@ namespace Compiler
     {
         private VisitorSettings _settings;
         private Stack<Label> _loops = new Stack<Label>();
-        private int _loopId = 0;
 
         private ILGenerator _gen;
 

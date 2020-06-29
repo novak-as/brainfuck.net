@@ -30,9 +30,9 @@ namespace Compiler
             {
                 { "f|file=", "{file} with brainfuck sources", v=> { _inputFile = v; } },
                 { "assembly_name=", "assembly name", v=> { _assemblyName = v; } },
-                { "v|version=","version", v=>{ UInt32.TryParse(v, out _version); } },
-                { "m|memory=", "available memory", v=> { _availableMemory = Int32.Parse(v); } },
-                { "n|nested=", "max depth of nested loop", v=> { _maxDepthNested = Int32.Parse(v); } },
+                { "v|version=","version", v=>{ uint.TryParse(v, out _version); } },
+                { "m|memory=", "available memory", v=> { _availableMemory = int.Parse(v); } },
+                { "n|nested=", "max depth of nested loop", v=> { _maxDepthNested = int.Parse(v); } },
                 { "c|cycled", "is cycled", v=> _isCycled = v !=null },
                 { "h|help", "show this message", v=> _showHelp = v != null }
             };
@@ -43,11 +43,12 @@ namespace Compiler
             }
             catch (OptionException ex)
             {
+                Console.WriteLine(ex);
                 Console.WriteLine("Invalid params, try 'compiler --help' for more options");
                 Environment.Exit(1);
             }
 
-            if (_showHelp || String.IsNullOrEmpty(_inputFile))
+            if (_showHelp || string.IsNullOrEmpty(_inputFile))
             {
                 ShowHelp(optionSet);
                 Console.ReadKey();
@@ -78,25 +79,23 @@ namespace Compiler
 
             assembly.SetEntryPoint(method);
 
-            //method.DefineParameter(1, ParameterAttributes.None, "args");
-
             
             var body = method.GetILGenerator();
 
-            body.DeclareLocal(typeof(Int32[])); // [0] int32 memory
-            body.DeclareLocal(typeof(Int32)); // [1] int32 currentPosition
-            body.DeclareLocal(typeof(Int32[])); // [2] int32[] loopsStack
-            body.DeclareLocal(typeof(Int32)); // [3] int32 loopPosition
+            body.DeclareLocal(typeof(int[])); // [0] int32 memory
+            body.DeclareLocal(typeof(int)); // [1] int32 currentPosition
+            body.DeclareLocal(typeof(int[])); // [2] int32[] loopsStack
+            body.DeclareLocal(typeof(int)); // [3] int32 loopPosition
 
             body.Emit(OpCodes.Ldc_I4_S, _availableMemory);
-            body.Emit(OpCodes.Newarr, typeof(Int32));
+            body.Emit(OpCodes.Newarr, typeof(int));
             body.Emit(OpCodes.Stloc_0);
 
             body.Emit(OpCodes.Ldc_I4_0);
             body.Emit(OpCodes.Stloc_1);
 
             body.Emit(OpCodes.Ldc_I4_S, _maxDepthNested);
-            body.Emit(OpCodes.Newarr, typeof(Int32));
+            body.Emit(OpCodes.Newarr, typeof(int));
             body.Emit(OpCodes.Stloc_2);
 
             body.Emit(OpCodes.Ldc_I4_0);
