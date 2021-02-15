@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Antlr4.Runtime.Misc;
-using System.Reflection.Emit;
 using System.Reflection;
-using Compiler.Visitors;
+using System.Reflection.Emit;
+using Antlr4.Runtime.Misc;
 
-namespace Compiler
+namespace Compiler.Generators
 {
     public class VisitorOptimized: BrainfuckOptimizedBaseListener
     {

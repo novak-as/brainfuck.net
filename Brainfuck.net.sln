@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BFCore", "BFCore\BFCore.csproj", "{D8A69E26-F575-4BB6-9048-9FA37B2E4C60}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brainfuck.Antlr", "Brainfuck.Antlr\Brainfuck.Antlr.csproj", "{D8A69E26-F575-4BB6-9048-9FA37B2E4C60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compiler", "Compiler\Compiler.csproj", "{B395FD05-0B1D-425F-B184-52B037D9A8B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brainfuck.Compiler", "Brainfuck.Compiler\Brainfuck.Compiler.csproj", "{B395FD05-0B1D-425F-B184-52B037D9A8B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2200AAF6-E79C-422D-9AF8-C7B9AAEDF754}
 	EndGlobalSection
 EndGlobal

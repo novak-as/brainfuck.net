@@ -1,4 +1,4 @@
-grammar BrainfuckOptimized;
+grammar Brainfuck;
 
 NEXT: '>';
 PREV: '<';
